@@ -29,25 +29,30 @@ class Board:
                     piece.draw(win)
 
     def move(self, row, col, color):
-        self.board[row][col] = Piece(row,col, color)
+        if(self.board[row][col] == 0):
+            self.board[row][col] = Piece(row,col, color)
+            self.empty_spaces = self.empty_spaces - 1
+            return True
+        else:
+            return False
 
-    def check_winner(self):
+    def check_winner(self, win, font):
+        if self.empty_spaces == 0:
+            font.render_to(win, (0,0), "It is a Draw!", BLACK)
         for row in range(ROWS):
-            if self.board[row][0] == self.board[row][1] == self.board[row][2] and self.board[row][0] != 0:
-                if self.board[row][0] == "BLUE":
+            if str(self.board[row][0]) == str(self.board[row][1]) == str(self.board[row][2]) and self.board[row][0] != 0:
+                if str(self.board[row][0].color) == "BLUE":
                     print("O Wins!")
-                elif self.board[row][0] == "RED":
+                elif str(self.board[row][0]) == "RED":
                     print("X Wins!")
         for col in range(COLS):
-            if self.board[0][col] == self.board[1][col] == self.board[0][col] and self.board[0][col] != 0:
-                if self.board[0][col] == "BLUE":
+            if str(self.board[0][col]) == str(self.board[1][col]) == str(self.board[2][col]) and self.board[0][col] != 0:
+                if str(self.board[0][col]) == "BLUE":
                     print("O Wins!")
-                elif self.board[0][col] == "RED":
+                elif str(self.board[0][col]) == "RED":
                     print("X Wins!")
-        if self.board[0][0]==self.board[1][1]==self.board[2][2] and self.board[0][2]!=0:
-            if self.board[0][0] == "BLUE":
+        if str(self.board[0][0]) == str(self.board[1][1]) == str(self.board[2][2]) and self.board[0][0] != 0:
+            if str(self.board[0][0]) == "BLUE":
                 print("O Wins!")
-            elif self.board[0][0] == "RED":
+            elif str(self.board[0][0]) == "RED":
                 print("X Wins!")
-    def print_board(self):
-        print(self.board)

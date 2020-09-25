@@ -1,7 +1,10 @@
 import pygame
+import pygame.freetype
 from tictactoe.constants import *
 from tictactoe.board import Board
 
+pygame.init()
+font = pygame.font.SysFont('Comic Sans MS', 30)
 FPS = 60
 
 WIN = pygame.display.set_mode((WIDTH,HEIGHT))
@@ -18,7 +21,6 @@ def main():
     board = Board()
     turn = "BLUE"
     while run:
-        board.check_winner()
         clock.tick(FPS)
 
         for event in pygame.event.get():
@@ -27,14 +29,12 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 row, col = get_row_col_from_mouse(pos)
-                if turn == "BLUE":
-                    board.move(row, col, "BLUE")
-                    board.print_board()
+                if turn == "BLUE" and board.move(row, col, "BLUE"):
                     turn = "RED"
-                else:
-                    board.move(row, col, "RED")
-                    board.print_board()
+                    board.check_winner(WIN, font)
+                elif board.move(row, col, "RED"):
                     turn = "BLUE"
+                    board.check_winner(WIN, font)
         board.draw(WIN)
         pygame.display.update()
 
