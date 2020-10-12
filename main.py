@@ -1,7 +1,7 @@
 import pygame
 import pygame.freetype
 from tictactoe.constants import *
-from tictactoe.board import Board
+from tictactoe.game import *
 
 pygame.init()
 font = pygame.font.SysFont('Comic Sans MS', 30)
@@ -18,7 +18,7 @@ def get_row_col_from_mouse(pos):
 def main():
     run = True
     clock = pygame.time.Clock()
-    board = Board()
+    game = Game(WIN)
     turn = "BLUE"
     while run:
         clock.tick(FPS)
@@ -35,8 +35,7 @@ def main():
                 elif board.move(row, col, "RED"):
                     turn = "BLUE"
                     board.check_winner(WIN, font)
-        board.draw(WIN)
-        pygame.display.update()
+        game.update()
 
     pygame.quit()
 main()
