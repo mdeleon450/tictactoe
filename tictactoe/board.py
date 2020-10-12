@@ -36,23 +36,23 @@ class Board:
         else:
             return False
 
-    def check_winner(self, win, font):
-        if self.empty_spaces == 0:
-            font.render_to(win, (0,0), "It is a Draw!", BLACK)
+    def check_winner(self, win):
         for row in range(ROWS):
             if str(self.board[row][0]) == str(self.board[row][1]) == str(self.board[row][2]) and self.board[row][0] != 0:
                 if str(self.board[row][0].color) == "BLUE":
-                    print("O Wins!")
+                    return 'O'
                 elif str(self.board[row][0]) == "RED":
-                    print("X Wins!")
+                    return 'X'
         for col in range(COLS):
             if str(self.board[0][col]) == str(self.board[1][col]) == str(self.board[2][col]) and self.board[0][col] != 0:
                 if str(self.board[0][col]) == "BLUE":
-                    print("O Wins!")
+                    return 'O'
                 elif str(self.board[0][col]) == "RED":
-                    print("X Wins!")
+                    return 'X'
         if str(self.board[0][0]) == str(self.board[1][1]) == str(self.board[2][2]) and self.board[0][0] != 0:
             if str(self.board[0][0]) == "BLUE":
-                print("O Wins!")
+                return 'O'
             elif str(self.board[0][0]) == "RED":
-                print("X Wins!")
+                return 'X'
+        if self.empty_spaces == 0:
+            return "Draw"

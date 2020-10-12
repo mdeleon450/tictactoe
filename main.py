@@ -3,11 +3,9 @@ import pygame.freetype
 from tictactoe.constants import *
 from tictactoe.board import Board
 
-pygame.init()
-font = pygame.font.SysFont('Comic Sans MS', 30)
 FPS = 60
 
-WIN = pygame.display.set_mode((WIDTH,HEIGHT))
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tic-Tac-Toe")
 def get_row_col_from_mouse(pos):
     x, y = pos
@@ -20,21 +18,26 @@ def main():
     clock = pygame.time.Clock()
     board = Board()
     turn = "BLUE"
+    winner = None
     while run:
         clock.tick(FPS)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN and winner == None:
                 pos = pygame.mouse.get_pos()
                 row, col = get_row_col_from_mouse(pos)
                 if turn == "BLUE" and board.move(row, col, "BLUE"):
                     turn = "RED"
-                    board.check_winner(WIN, font)
+                    winner = board.check_winner(WIN)
                 elif board.move(row, col, "RED"):
                     turn = "BLUE"
-                    board.check_winner(WIN, font)
+                    winner = board.check_winner(WIN)
+                if winner == "Draw":
+                    print("It is a Draw!")
+                elif winner != None:
+                    print(str(winner) + " wins!")
         board.draw(WIN)
         pygame.display.update()
 
