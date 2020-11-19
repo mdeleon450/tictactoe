@@ -1,7 +1,9 @@
 import pygame
+import random
 import pygame.freetype
 from tictactoe.constants import *
 from tictactoe.board import Board
+
 
 FPS = 60
 
@@ -17,7 +19,7 @@ def main():
     run = True
     clock = pygame.time.Clock()
     board = Board()
-    turn = "BLUE"
+    turn = 1
     winner = None
     while run:
         clock.tick(FPS)
@@ -25,14 +27,18 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+
+            if (turn == -1):
+                choice = random.choice(board.get_legal_moves())
+                board.move(choice[0], choice[1], -1)
+                turn = 1
+                winner = board.check_winner(WIN)
+
             if event.type == pygame.MOUSEBUTTONDOWN and winner == None:
                 pos = pygame.mouse.get_pos()
                 row, col = get_row_col_from_mouse(pos)
-                if turn == "BLUE" and board.move(row, col, "BLUE"):
-                    turn = "RED"
-                    winner = board.check_winner(WIN)
-                elif board.move(row, col, "RED"):
-                    turn = "BLUE"
+                if turn == 1 and board.move(row, col, 1):
+                    turn = -1
                     winner = board.check_winner(WIN)
                 if winner == "Draw":
                     print("It is a Draw!")

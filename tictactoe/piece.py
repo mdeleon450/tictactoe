@@ -17,9 +17,9 @@ class Piece:
         #radius = SQUARE_SIZE//2 - self.PADDING
         #pygame.draw.circle(win, GREY, (self.x,self.y), radius + self.OUTLINE)
         #pygame.draw.circle(win, self.color, (self.x, self.y), radius)
-        if self.color == "BLUE":
+        if self.color == 1:
             win.blit(O,(self.x - O.get_width()// 2, self.y - O.get_height()//2))
-        if self.color == "RED":
+        if self.color == -1:
             win.blit(X,(self.x - X.get_width()//2 , self.y - X.get_height()//2))
 
     def __repr__(self):

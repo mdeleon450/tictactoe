@@ -10,5 +10,5 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 GREY = (128,128,128)
 
-X = pygame.transform.scale(pygame.image.load('assets/pngwing.com (1).png'), (200,200))
-O = pygame.transform.scale(pygame.image.load('assets/pngwing.com.png'), (200,200))
+X = pygame.transform.scale(pygame.image.load('assets/redX.png'), (200,200))
+O = pygame.transform.scale(pygame.image.load('assets/blueO.png'), (200,200))
